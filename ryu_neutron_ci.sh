@@ -31,7 +31,7 @@ OFAGENT_REFSPEC=refs/changes/91/71791/15
 #fi
 DEVSTACK_REPO=https://github.com/osrg/devstack.git
 DEVSTACK_BRANCH=bp/ryu-ml2-driver
-DEVSTACK_DEST=.
+DEVSTACK_DEST=${TOP_DIR}/devstack
 
 cleanup_ipfilter() {
   for chain in INPUT FORWARD OUTPUT; do
@@ -80,7 +80,7 @@ cleanup_ipfilter() {
 die() {
   set +x
   rc=$1
-  cd ${TOP_DIR}
+  cd ${DEVSTACK_DEST}
   sudo killall haproxy > /dev/null 2>&1
   if [ -x ./unstack.sh ]; then
     ./unstack.sh
@@ -171,7 +171,9 @@ prepare_devstack() {
   return 0
 }
 
-sudo rm -rf .* * > /dev/null 2>&1
+sudo rm -rf * > /dev/null 2>&1
+mkdir -p ${LOG_DIR}
+exec 1> >( tee -a "${LOG_DIR}/console.txt" ) 2>&1
 
 prepare_devstack
 if [ $? -ne 0 ]; then
@@ -190,7 +192,8 @@ if [ $? -ne 0 ]; then
   echo "preparation for neutron failed."
   die 1
 fi
-cd ${TOP_DIR}
+
+cd ${DEVSTACK_DEST}
 
 if [ "$TESTTARGET" = "ryuplugin" ]; then
 cat <<EOF > localrc
