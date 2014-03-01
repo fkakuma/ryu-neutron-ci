@@ -21,7 +21,7 @@ NEUTRON_REPO=https://github.com/openstack/neutron.git
 NEUTRON_BRANCH=master
 NEUTRON_DEST=neutron
 OFAGENT_REPO=https://review.openstack.org/openstack/neutron
-OFAGENT_REFSPEC=refs/changes/91/71791/15
+OFAGENT_REFSPEC=refs/changes/91/71791/16
 #if [ "$TESTTARGET" = "ryuplugin" ]; then
 #  DEVSTACK_REPO=https://github.com/openstack-dev/devstack.git
 #  DEVSTACK_BRANCH=master
@@ -30,7 +30,7 @@ OFAGENT_REFSPEC=refs/changes/91/71791/15
 #  DEVSTACK_BRANCH=bp/ryu-ml2-driver
 #fi
 DEVSTACK_REPO=https://github.com/osrg/devstack.git
-DEVSTACK_BRANCH=bp/ryu-ml2-driver
+DEVSTACK_BRANCH=ryu-neutron-ci
 DEVSTACK_DEST=${TOP_DIR}/devstack
 
 cleanup_ipfilter() {
